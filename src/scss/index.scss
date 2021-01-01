@@ -1,0 +1,47 @@
+main {
+    position: relative;
+
+  .navbar {
+    justify-content: center;
+    align-content: center;
+    .navigation {
+    button{
+        color: #163651 ;
+        font-weight: 700;
+    }
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      flex-direction: row;
+    }
+  }
+  padding-top: 0 !important;
+  .logo {
+    width: 175px;
+    height: auto;
+  }
+
+  .background{
+      opacity: 0.5;
+      background-size: cover;
+      width: 100%;
+      height: calc(100vh - 80px);
+  }
+  .background-text{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      text-align: center;
+      color: #163651;
+      font-size: 50px;
+      font-weight: 700;
+      .eslogan{
+        font-size: 25px !important;
+      }
+
+  }
+  .back{
+    position: relative;
+    height: calc(100vh - 80px);
+  }
+}
