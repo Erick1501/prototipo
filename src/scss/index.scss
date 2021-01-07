@@ -22,26 +22,67 @@ main {
   }
 
   .background{
-      opacity: 0.5;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+      opacity: 0.6;
       background-size: cover;
       width: 100%;
       height: calc(100vh - 80px);
   }
   .background-text{
-      position: absolute;
-      top: 50%;
-      left: 50%;
+      z-index: 3;    
       text-align: center;
       color: #163651;
-      font-size: 50px;
+      font-family: "Quattrocento";
+      font-size: 75px;
       font-weight: 700;
       .eslogan{
-        font-size: 25px !important;
+        font-size:  30px !important;
+      }     
+      .boton-ayuda{   
+        background:#163651 ;       
+        text-transform:uppercase;
+        font-size: 25px;
+        height: 50px;
+        width: 150px;  
       }
-
+      .IcoAyu{
+        height: 35px;
+      }
   }
   .back{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: relative;
     height: calc(100vh - 80px);
   }
+
+//servicio
+
+  .Servicio{
+    width: 100%;
+    text-align: center;
+    .titu-serv{
+      font-size: 50px;
+      font-variant: small-caps;
+    }
+    .titu-ser{
+      font-size: 30px;
+    }
+    .ServPANe{
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  
+  
 }
+
+
+
+

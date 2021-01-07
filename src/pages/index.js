@@ -1,10 +1,16 @@
 import * as React from "react";
-import { Pane, Button, Text, Heading } from 'evergreen-ui'
-import logo from "../images/logo-pro.png"
-import { Router } from "@reach/router"
+import { Pane, Button, Text, Heading } from "evergreen-ui";
+import logo from "../images/logo-pro.png";
+import { Router } from "@reach/router";
 import NavbarComponent from "../components/NavbarComponent";
-import background from "../images/pexels-pixabay-45842.jpg"
-import icoayuda from "../images/amor.png"
+import Footer from "../components/Footer";
+import background from "../images/pexels-pixabay-45842.jpg";
+import icoayuda from "../images/amor.png";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+import CarrImg1 from "../images/img1.jpg"
+import CarrImg2 from "../images/img2.jpg"
+import CarrImg3 from "../images/img3.jpg"
 
 // styles
 const pageStyles = {
@@ -104,65 +110,79 @@ const links = [
 
 // markup
 const IndexPage = () => {
+  const IconoAyuda = <img className="IcoAyu" src={icoayuda} />;
   return (
-    <main >
+    <main>
       <NavbarComponent />
       <div className="back">
-      <div className="background-text">
-          CARITAS DEI 
+        <div className="background-text">
+          CARITAS DEI
           <div className="eslogan">
-          Ayudemos a las personas que más lo necesitan
+            Ayudemos a las personas que más lo necesitan
           </div>
-          <div className="boton-ayuda">
-          <Button iconBefore={icoayuda}>Ayuda</Button>
+          <div>
+            <Button
+              iconBefore={IconoAyuda}
+              appearance="primary"
+              className="boton-ayuda"
+            >
+              Ayuda
+            </Button>
           </div>
+        </div>
+        <img className="background" src={background} />
       </div>
-      <img className="background" src={background} />
-      </div>
-      <title>Home Page</title>
-      <Button appearance="primary">hola</Button>
-      <h1 style={headingStyles}>
-        Congratulations
-        <br />
-        <span style={headingAccentStyles}>— you just made a Gatsby site! </span>
-        <span role="img" aria-label="Party popper emojis">
-          🎉🎉🎉
-        </span>
-      </h1>
-      <p style={paragraphStyles}>
-        Edit <code style={codeStyles}>src/pages/index.js</code> to see this page
-        update in real-time.{" "}
-        <span role="img" aria-label="Sunglasses smiley emoji">
-          😎
-        </span>
-      </p>
-      <ul style={listStyles}>
-        <li style={docLinkStyle}>
-          <a
-            style={linkStyle}
-            href={`${docLink.url}?utm_source=starter&utm_medium=start-page&utm_campaign=minimal-starter`}
+      <div className="Servicio">
+        <div className="titu-serv">Servicio</div>
+        <Pane className="ServPANe" clearfix>
+          <Pane
+            elevation={1}
+            backgroundColor="#DDEBF8"
+            width="45%"
+            height={320}
+            margin={24}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
           >
-            {docLink.text}
-          </a>
-        </li>
-        {links.map((link) => (
-          <li style={{ ...listItemStyles, color: link.color }}>
-            <span>
-              <a
-                style={linkStyle}
-                href={`${link.url}?utm_source=starter&utm_medium=start-page&utm_campaign=minimal-starter`}
-              >
-                {link.text}
-              </a>
-              <p style={descriptionStyle}>{link.description}</p>
-            </span>
-          </li>
-        ))}
-      </ul>
-      <img
-        alt="Gatsby G Logo"
-        src="data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2a10 10 0 110 20 10 10 0 010-20zm0 2c-3.73 0-6.86 2.55-7.75 6L14 19.75c3.45-.89 6-4.02 6-7.75h-5.25v1.5h3.45a6.37 6.37 0 01-3.89 4.44L6.06 9.69C7 7.31 9.3 5.63 12 5.63c2.13 0 4 1.04 5.18 2.65l1.23-1.06A7.959 7.959 0 0012 4zm-8 8a8 8 0 008 8c.04 0 .09 0-8-8z' fill='%23639'/%3E%3C/svg%3E"
-      />
+            <Text className="titu-ser"> Alimentacion</Text>
+            <Text size={600} padding={30}>Se preparan todos los alimentos donados. .</Text>
+          </Pane>
+          <Pane
+            elevation={1}
+            backgroundColor="#DDEBF8"
+            width="45%"
+            height={320}
+            margin={24}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
+          >
+            <Text className="titu-ser">Entrega de Alimentos</Text>
+            <Text size={600} padding={30}>
+              Se hace un recorrido sobre las calles entregando los alimentos.
+            </Text>
+          </Pane>
+        </Pane>
+      </div>
+      <card-nosot />
+      <Carousel className="carrusel" showThumbs={false} >
+        <div>
+          <img height={500} src={CarrImg1} />
+          <p className="legend">Legend 1</p>
+        </div>
+        <div>
+          <img height={500} src={CarrImg2} />
+          <p className="legend">Legend 2</p>
+        </div>
+        <div>
+          <img height={500} src={CarrImg3} />
+          <p className="legend">Legend 3</p>
+        </div>
+      </Carousel>
+      <Footer />
     </main>
   );
 };
