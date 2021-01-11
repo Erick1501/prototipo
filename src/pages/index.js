@@ -11,6 +11,9 @@ import { Carousel } from "react-responsive-carousel";
 import CarrImg1 from "../images/img1.jpg"
 import CarrImg2 from "../images/img2.jpg"
 import CarrImg3 from "../images/img3.jpg"
+import carro from "../images/carros.png"
+import cocina from "../images/cocina.png"
+
 
 // styles
 const pageStyles = {
@@ -133,7 +136,7 @@ const IndexPage = () => {
         <img className="background" src={background} />
       </div>
       <div className="Servicio">
-        <div className="titu-serv">Servicio</div>
+        <div className="titu-serv">Servicios</div>
         <Pane className="ServPANe" clearfix>
           <Pane
             elevation={1}
@@ -146,6 +149,7 @@ const IndexPage = () => {
             alignItems="center"
             flexDirection="column"
           >
+            <img className="cocina" src={cocina}/>
             <Text className="titu-ser"> Alimentacion</Text>
             <Text size={600} padding={30}>Se preparan todos los alimentos donados. .</Text>
           </Pane>
@@ -160,6 +164,7 @@ const IndexPage = () => {
             alignItems="center"
             flexDirection="column"
           >
+            <img className="carro" src={carro}/>
             <Text className="titu-ser">Entrega de Alimentos</Text>
             <Text size={600} padding={30}>
               Se hace un recorrido sobre las calles entregando los alimentos.

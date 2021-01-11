@@ -77,8 +77,32 @@ main {
       display: flex;
       justify-content: space-between;
     }
+    .carro{
+      height: 75px;
+      padding: 40px;
+    }
+    .cocina{
+      height: 75px;
+      padding: 40px;
+      
+    }
   }
+  //footer
+  .footer{
+      .container-fo{
+      display: flex;
+      justify-content: space-between;
 
+      }
+
+      .icoFB{
+        height: 35px;
+      }
+      .icoIG{
+        height: 35px;
+      }
+
+  }
   
   
 }

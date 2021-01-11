@@ -25,7 +25,7 @@ const NavbarComponent = () => {
             <Link to="/voluntariado">Voluntariado</Link>
           </Button>
           <Button appearance="minimal">
-            <Link>Nosotros</Link>
+            <Link to="/nosotros">Nosotros</Link>
           </Button>
           <Button appearance="minimal">
             <Link>Donación</Link>
