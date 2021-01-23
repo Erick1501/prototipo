@@ -13,6 +13,7 @@ import CarrImg2 from "../images/img2.jpg"
 import CarrImg3 from "../images/img3.jpg"
 import carro from "../images/carros.png"
 import cocina from "../images/cocina.png"
+import { Link } from "gatsby";
 
 
 // styles
@@ -129,7 +130,7 @@ const IndexPage = () => {
               appearance="primary"
               className="boton-ayuda"
             >
-              Ayuda
+              <Link to="/donacion">Ayuda</Link>
             </Button>
           </div>
         </div>
@@ -172,7 +173,7 @@ const IndexPage = () => {
           </Pane>
         </Pane>
       </div>
-      <card-nosot />
+      <div><h1>Actividades</h1></div>
       <Carousel className="carrusel" showThumbs={false} >
         <div>
           <img height={500} src={CarrImg1} />

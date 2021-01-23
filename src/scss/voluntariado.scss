@@ -1,16 +1,15 @@
-.main {
+main {
   .cont-Volu {
     display: flex;
     justify-content: space-between;
   }
-  .form-vol{
-
+  .titu-form{
+    padding-top: 20px;
+    padding-bottom: 24px;
   }
-  .img-form{
-      
-  }
-  .vol-reg{
-   
-  }
-  
+ .imgvol{
+   position: absolute;
+   height: 620px;
+   width: 550px;
+ }
 }

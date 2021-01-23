@@ -28,7 +28,7 @@ const NavbarComponent = () => {
             <Link to="/nosotros">Nosotros</Link>
           </Button>
           <Button appearance="minimal">
-            <Link>Donación</Link>
+            <Link to="/donacion">Ayuda</Link>
           </Button>
           <Button appearance="minimal">
             <Link>Iniciar Secion</Link>

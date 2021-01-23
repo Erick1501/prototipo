@@ -1,14 +1,17 @@
+@import "voluntariado";
+@import "nosotros";
+
 main {
-    position: relative;
+  position: relative;
 
   .navbar {
     justify-content: center;
     align-content: center;
     .navigation {
-    button{
-        color: #163651 ;
+      button {
+        color: #163651;
         font-weight: 700;
-    }
+      }
       align-items: center;
       justify-content: center;
       display: flex;
@@ -21,38 +24,38 @@ main {
     height: auto;
   }
 
-  .background{
+  .background {
     z-index: 1;
     position: absolute;
     top: 0;
     left: 0;
-      opacity: 0.6;
-      background-size: cover;
-      width: 100%;
-      height: calc(100vh - 80px);
+    opacity: 0.6;
+    background-size: cover;
+    width: 100%;
+    height: calc(100vh - 80px);
   }
-  .background-text{
-      z-index: 3;    
-      text-align: center;
-      color: #163651;
-      font-family: "Quattrocento";
-      font-size: 75px;
-      font-weight: 700;
-      .eslogan{
-        font-size:  30px !important;
-      }     
-      .boton-ayuda{   
-        background:#163651 ;       
-        text-transform:uppercase;
-        font-size: 25px;
-        height: 50px;
-        width: 150px;  
-      }
-      .IcoAyu{
-        height: 35px;
-      }
+  .background-text {
+    z-index: 3;
+    text-align: center;
+    color: #163651;
+    font-family: "Quattrocento";
+    font-size: 75px;
+    font-weight: 700;
+    .eslogan {
+      font-size: 30px !important;
+    }
+    .boton-ayuda {
+      background: #163651;
+      text-transform: uppercase;
+      font-size: 25px;
+      height: 50px;
+      width: 150px;
+    }
+    .IcoAyu {
+      height: 35px;
+    }
   }
-  .back{
+  .back {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -61,52 +64,46 @@ main {
     height: calc(100vh - 80px);
   }
 
-//servicio
+  //servicio
 
-  .Servicio{
+  .Servicio {
     width: 100%;
     text-align: center;
-    .titu-serv{
+    .titu-serv {
       font-size: 50px;
       font-variant: small-caps;
     }
-    .titu-ser{
+    .titu-ser {
       font-size: 30px;
     }
-    .ServPANe{
+    .ServPANe {
       display: flex;
       justify-content: space-between;
     }
-    .carro{
-      height: 75px;
+    .carro {
+      height: 150px;
       padding: 40px;
     }
-    .cocina{
-      height: 75px;
+    .cocina {
+      height: 150px;
       padding: 40px;
-      
     }
   }
   //footer
-  .footer{
-      .container-fo{
-      display: flex;
-      justify-content: space-between;
-
-      }
-
-      .icoFB{
+  .footer {
+    background-color: #163651;   
+    text-align: center;
+    height: 300px;
+    justify-content: space-between;
+    color: blanchedalmond;
+    .container {
+      padding-top: 40px;
+      .icoFB {
         height: 35px;
       }
-      .icoIG{
+      .icoIG {
         height: 35px;
       }
-
+    }
   }
-  
-  
 }
-
-
-
-
