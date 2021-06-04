@@ -1,7 +1,24 @@
 main {
-  .imgdona {
-    position: absolute;
-    height: 10px;
-    width: 10px;
+  .inf-don{
+    text-align: center;
   }
+  .botones{
+    color:#163651;
+  }
+
+ 
+
+  .boton{
+    background-color: #f7f7f7;
+    background-image: none;
+    &.active{
+      background-color: #163651;
+    }
+  }
+// .boton2{ 
+//    background-color: white;    
+//    &.active2{
+//      background: #163651;
+//    }
+//  }
 }

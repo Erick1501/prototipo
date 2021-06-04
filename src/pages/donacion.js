@@ -1,11 +1,19 @@
 import * as React from "react";
 import NavbarComponent from "../components/NavbarComponent";
-import { Pane, Text, TextInputField, Button, Checkbox } from "evergreen-ui";
+import {
+  Pane,
+  Text,
+  TextInputField,
+  Button,
+ 
+} from "evergreen-ui";
 
 import Footer from "../components/Footer";
 import imgdona from "../images/donacion.jpg";
 
-const donacion = () => {
+const Donacion = () => {
+  const [una_persona, cambiar_una_persona] = React.useState(true);
+  
   return (
     <main>
       <NavbarComponent />
@@ -40,7 +48,7 @@ const donacion = () => {
             flexDirection="column"
           >
             <div>
-              <Text size={400}>Personas Situacion de vulneravilidad</Text>
+              <Text size={400}>Personas Situacion de Vulneravilidad</Text>
             </div>
             <div>
               <TextInputField
@@ -59,30 +67,56 @@ const donacion = () => {
               <Text direccion="text-input-name" />
             </div>
             <div>
-              <Button variant="outline-secondary">Una Persona</Button>
-              <Button variant="outline-secondary">Grupo de personas</Button>
+              <Button
+                onClick={() => cambiar_una_persona(true)}
+                variant="outline-secondary"
+                className={`${una_persona ? "active" : ""} boton`}
+              >
+                Una Persona
+              </Button>
+              <Button
+                onClick={() => cambiar_una_persona(false)}
+                variant="outline-secondary"
+                className={`${!una_persona ? "active" : ""} boton`}
+              >
+                Grupo de personas
+              </Button>
             </div>
-            <div>
-              <TextInputField width={400} label="sexo" />
-              <Text sexo="text-input-name" />
-            </div>
-            
-            <div>
-              <TextInputField width={400} label="Descripcion" />
-              <Text Descripcion="text-input-name" />
-            </div>
-            <div>
-              <TextInputField width={400} label="Celular" />
-              <Text celular="text-input-name" />
-            </div>
+            {una_persona ? (
+              <div>
+                <div>
+                  <TextInputField width={400} label="Sexo" />
+                  <Text sexo="text-input-name" />
+                </div>
+
+                <div>
+                  <TextInputField width={400} label="Descripción" />
+                  <Text Descripcion="text-input-name" />
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div>
+                  <TextInputField width={400} label="Numero de Personas" />
+                  <Text numeroPer="text-input-name" />
+                </div>
+                <div>
+                  <TextInputField width={400} label="Descripcion" />
+                  <Text Descripcion="text-input-name" />
+                </div>
+              </div>
+            )}
+
             <Button appearance="primary" className="boton-ayuda">
               Enviar
             </Button>
           </Pane>
         </Pane>
+       
+        
       </div>
       <Footer />
     </main>
   );
 };
-export default donacion;
+export default Donacion;

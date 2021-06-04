@@ -22,16 +22,19 @@ const NavbarComponent = () => {
         </Pane>
         <Pane className="navigation">
           <Button appearance="minimal">
-            <Link to="/voluntariado">Voluntariado</Link>
+            <Link to="/voluntariado">VOLUNTARIADO</Link>
           </Button>
           <Button appearance="minimal">
-            <Link to="/nosotros">Nosotros</Link>
+            <Link to="/nosotros">NOSOTROS</Link>
           </Button>
           <Button appearance="minimal">
-            <Link to="/donacion">Ayuda</Link>
+            <Link to="/donacion">AYUDA</Link>
           </Button>
           <Button appearance="minimal">
-            <Link>Iniciar Secion</Link>
+            <Link to="/donaciones">DONACION</Link>
+          </Button>
+          <Button appearance="minimal">
+            <Link to="/login">lOGIN</Link>
           </Button>
         </Pane>
       </Pane>

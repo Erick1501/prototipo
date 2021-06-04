@@ -1,6 +1,13 @@
 import * as React from "react";
 import NavbarComponent from "../components/NavbarComponent";
-import { Pane, TextInput, Text, TextInputField, Button } from "evergreen-ui";
+import {
+  Pane,
+  Textarea,
+  Text,
+  TextInputField,
+  Button,
+  Autocomplete,
+} from "evergreen-ui";
 
 import Footer from "../components/Footer";
 import imgvol from "../images/voluntariado.jpg";
@@ -17,7 +24,7 @@ const Voluntariado = () => {
             float="left"
             backgroundColor="white"
             width={550}
-            height={620}
+            height={720}
             margin={24}
             display="flex"
             alignItems="center"
@@ -32,25 +39,46 @@ const Voluntariado = () => {
             </div>
             <div>
               <TextInputField width={400} label="Apellidos" />
-              <Text apellido="text-input-name" />
+              <Text apellido="text-input-lastname" />
             </div>
             <div>
               <TextInputField width={400} label="Correo Electronico" />
-              <Text correo="text-input-name" />
+              <Text correo="text-input-email" />
             </div>
             <div>
               <TextInputField width={400} label="Cedula" />
-              <Text cedula="text-input-name" />
+              <Text cedula="text-input-cedula" />
             </div>
             <div>
               <TextInputField width={400} label="Nùmero Celular" />
-              <Text celular="text-input-name" />
+              <Text celular="text-input-numero" />
             </div>
+            <div>
+              <Autocomplete
+                title="profesion"
+                onChange={(changedItem) => console.log(changedItem)}
+                items={["Doctor", "Enfermero", "psicologo", "Paramedico", "Ingeniero"]}
+              >
+                {(props) => {
+                  const { getInputProps, getRef, inputValue } = props;
+                  return (
+                    <TextInputField
+                      width={400}
+                      value={inputValue}
+                      ref={getRef}
+                      {...getInputProps()}
+                      label="Profesión"
+                    />
+                  );
+                }}
+              </Autocomplete>
+            </div>
+            
             <Button appearance="primary" className="boton-ayuda">
               Enviar
             </Button>
           </Pane>
-          
+
           <Pane
             className="img-form"
             elevation={1}
@@ -63,8 +91,7 @@ const Voluntariado = () => {
             alignItems="center"
             flexDirection="column"
           >
-            <img className="imgvol" src={imgvol}/> 
-            
+            <img className="imgvol" src={imgvol} />
           </Pane>
         </Pane>
       </div>
