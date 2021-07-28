@@ -84,6 +84,8 @@ const TablaSoli = () => {
                               <div className="aws">Casas Poma</div>
                               <div><b>Correo Electrónico</b></div>
                               <div className="aws">armandopoma@45.com</div>
+                              <div><b>Cédula</b></div>
+                              <div className="aws">1725968635</div>
                               <div><b>Profesión</b></div>
                               <div className="aws">Doctor</div>
                               <div><b>Numero de celular</b></div>

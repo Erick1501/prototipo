@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Table } from "react-bootstrap";
-import { 
-  Button, 
+import {
+  Button,
   Pane,
-  Dialog, 
+  Dialog,
   Popover,
   Position,
   Menu,
@@ -31,9 +31,9 @@ const TablaSoli = () => {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>Solicitud</th> 
+                <th>Solicitud</th>
                 <th>Estado</th>
-                <th></th>             
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -62,15 +62,29 @@ const TablaSoli = () => {
                     <div className="container">
                       <div className="row">
                         <div className="col-sm-12">
-                          <div><b>Nombres</b> </div>
+                          <div>
+                            <b>Nombres</b>
+                          </div>
                           <div className="aws">Armando Pedro</div>
-                          <div><b>Apellidos</b></div>
+                          <div>
+                            <b>Apellidos</b>
+                          </div>
                           <div className="aws">Casas Poma</div>
-                          <div><b>Correo Electronico</b></div>
+                          <div>
+                            <b>Correo Electronico</b>
+                          </div>
                           <div className="aws">armandopoma@45.com</div>
-                          <div><b>Profesión</b></div>
+                          <div>
+                            <b>Cédula</b>
+                          </div>
+                          <div className="aws">1725968635</div>
+                          <div>
+                            <b>Profesión</b>
+                          </div>
                           <div className="aws">Doctor</div>
-                          <div><b>Numero de celular</b></div>
+                          <div>
+                            <b>Numero de celular</b>
+                          </div>
                           <div className="aws">0987456123</div>
                         </div>
                       </div>
