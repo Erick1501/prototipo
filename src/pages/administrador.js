@@ -1,11 +1,16 @@
 import * as React from "react";
 import NavbarComponent from "../components/NavbarComponent";
-import Footer from "../components/Footer";
-import {} from "react-bootstrap";
-import { Button, Select, Pane } from "evergreen-ui";
+import { Table, InputGroup, Text, Container, Row, Col } from "react-bootstrap";
+import {Button,} from "evergreen-ui";
+
+import TablaSoli from "./tablaSoli";
+import TablaVolun from "./tablaVolun";
+import TablaDona from "./tablaDona";
+import TablaPSV from "./tablaPSV";
 
 const Login = () => {
   const [nav_admin, cambiar_nav_admin] = React.useState("");
+  
   return (
     <main>
       <NavbarComponent />
@@ -15,21 +20,21 @@ const Login = () => {
           margin={16}
           variant="minimal"
         >
-          Voluntarios
+          VOLUNTARIOS
         </Button>
         <Button
           onClick={() => cambiar_nav_admin("solicitudes")}
           margin={16}
           variant="minimal"
         >
-          Solicitudes
+          SOLICITUDES
         </Button>
         <Button
           onClick={() => cambiar_nav_admin("donaciones")}
           margin={16}
           variant="minimal"
         >
-          Donaciones
+          DONACIONES
         </Button>
         <Button
           onClick={() => cambiar_nav_admin("psv")}
@@ -41,27 +46,21 @@ const Login = () => {
       </div>
       {nav_admin === "voluntarios" ? (
         <div>
-          <Pane
-            className=""
-            elevation={0}
-            float="center"
-            width={500}
-            height={550}
-            margin={20}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            flexDirection="column"
-          ><h1>hola</h1></Pane>
+          <TablaVolun />
         </div>
       ) : nav_admin === "solicitudes" ? (
-        <div><h1>1</h1></div>
+        <div>
+          <TablaSoli />
+        </div>
       ) : nav_admin === "donaciones" ? (
-        <div><h1>2</h1></div>
+        <div>
+          <TablaDona />
+        </div>
       ) : nav_admin === "psv" ? (
-        <div><h1>3</h1></div>
+        <div>
+          <TablaPSV />
+        </div>
       ) : null}
-
     </main>
   );
 };

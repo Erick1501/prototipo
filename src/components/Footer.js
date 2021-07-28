@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="container">
           <div className="row">
             <div className="col-sm-4">
-              <h3>Contactanos</h3>
+              <h3>Contáctanos</h3>
               <div>
                 <div>0987654321</div>
                 <div>pastoral@gmail.com</div>
@@ -18,9 +18,9 @@ const Footer = () => {
               </div>
             </div>
             <div className="col-sm-4">
-              <h3>Ubicacion</h3>
+              <h3>Ubicación</h3>
               <div>
-                <div>Iglesia de San Diego </div>
+                <div>Iglesia de San Diego de Alcalá</div>
                 <div>Calle Farman frente al cementrio</div>
                 <div>Quito, Ecuador</div>
               </div>

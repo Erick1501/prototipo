@@ -9,7 +9,7 @@ const NavbarComponent = () => {
       <Pane
         className="navbar"
         display="flex"
-        padding={16}
+        padding={19}
         background="tint2"
         borderRadius={3}
       >
@@ -34,7 +34,7 @@ const NavbarComponent = () => {
             <Link to="/donaciones">DONACION</Link>
           </Button>
           <Button appearance="minimal">
-            <Link to="/login">lOGIN</Link>
+            <Link to="/login">LOGIN</Link>
           </Button>
         </Pane>
       </Pane>

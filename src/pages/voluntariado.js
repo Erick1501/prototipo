@@ -42,15 +42,15 @@ const Voluntariado = () => {
               <Text apellido="text-input-lastname" />
             </div>
             <div>
-              <TextInputField width={400} label="Correo Electronico" />
+              <TextInputField width={400} label="Correo Electrónico" />
               <Text correo="text-input-email" />
             </div>
             <div>
-              <TextInputField width={400} label="Cedula" />
+              <TextInputField width={400} label="Cédula de identidad" />
               <Text cedula="text-input-cedula" />
             </div>
             <div>
-              <TextInputField width={400} label="Nùmero Celular" />
+              <TextInputField width={400} label="Número Celular" />
               <Text celular="text-input-numero" />
             </div>
             <div>

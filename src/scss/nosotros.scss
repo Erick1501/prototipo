@@ -10,4 +10,51 @@ main {
     text-align: center;
     height: 250px;
   }
+  //sobre nosotros
+  .nos_img{
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+  .titulo_nosotros{
+    text-align: center;
+    
+  }
+  .texto-nosotros{
+    text-align: justify;
+    margin-top: 5%;
+  }
+//mision
+
+  .mision_img{
+    display: flex;
+    width: 100%;
+    height: 100%;   
+  }
+  .texto-mision{
+    text-align: justify;
+    margin-top: 20%;
+  }
+  //vision
+  .vision_img{
+    display: flex;
+    width: 100%;
+    height: 100%; 
+  }
+  .texto-vision{
+    text-align: justify;
+    margin-top: 15%;
+  }
+
+  //card
+  .card{
+    text-align: center;
+    
+  }
+
+  //nosotros
+  .noticias{
+    background-color: blanchedalmond;
+    padding: 10px;
+  }
 }

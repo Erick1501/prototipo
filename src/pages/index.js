@@ -8,13 +8,12 @@ import background from "../images/pexels-pixabay-45842.jpg";
 import icoayuda from "../images/amor.png";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-import CarrImg1 from "../images/img1.jpg"
-import CarrImg2 from "../images/img2.jpg"
-import CarrImg3 from "../images/img3.jpg"
-import carro from "../images/carros.png"
-import cocina from "../images/cocina.png"
+import CarrImg1 from "../images/photo5066586625340975411.jpg";
+import CarrImg2 from "../images/img2.jpg";
+import CarrImg3 from "../images/img3.jpg";
+import carro from "../images/carros.png";
+import cocina from "../images/cocina.png";
 import { Link } from "gatsby";
-
 
 // styles
 const pageStyles = {
@@ -137,7 +136,7 @@ const IndexPage = () => {
         <img className="background" src={background} />
       </div>
       <div className="Servicio">
-        <div className="titu-serv">Servicios</div>
+        <div className="titu-serv">SERIVICIOS</div>
         <Pane className="ServPANe" clearfix>
           <Pane
             elevation={1}
@@ -150,9 +149,11 @@ const IndexPage = () => {
             alignItems="center"
             flexDirection="column"
           >
-            <img className="cocina" src={cocina}/>
-            <Text className="titu-ser"> Alimentacion</Text>
-            <Text size={600} padding={30}>Se preparan todos los alimentos donados. .</Text>
+            <img className="cocina" src={cocina} />
+            <Text className="titu-ser"> Alimentación</Text>
+            <Text size={600} padding={30}>
+              Se preparan todos los alimentos donados por los integrantes de la pastoral.
+            </Text>
           </Pane>
           <Pane
             elevation={1}
@@ -165,29 +166,35 @@ const IndexPage = () => {
             alignItems="center"
             flexDirection="column"
           >
-            <img className="carro" src={carro}/>
+            <img className="carro" src={carro} />
             <Text className="titu-ser">Entrega de Alimentos</Text>
             <Text size={600} padding={30}>
-              Se hace un recorrido sobre las calles entregando los alimentos.
+              Se hace un recorrido por las calles entregando los alimentos a las personas que se encuentran en ellas.
             </Text>
           </Pane>
         </Pane>
       </div>
-      <div><h1>Actividades</h1></div>
-      <Carousel className="carrusel" showThumbs={false} >
-        <div>
-          <img height={500} src={CarrImg1} />
-          <p className="legend">Legend 1</p>
-        </div>
-        <div>
-          <img height={500} src={CarrImg2} />
-          <p className="legend">Legend 2</p>
-        </div>
-        <div>
-          <img height={500} src={CarrImg3} />
-          <p className="legend">Legend 3</p>
-        </div>
-      </Carousel>
+      
+      <div className="Servicio">
+      <div className="titu-serv">ACTIVIDADES</div>
+        <Carousel className="carrusel" showThumbs={false}>
+          <div>
+            <img height={500} src={CarrImg1} />
+            <p className="legend">Centro Histórico</p>
+          </div>
+          <div>
+            <img height={500} src={CarrImg2} />
+            <p className="legend">Sur de Quito</p>
+          </div>
+          <div>
+            <img height={500} src={CarrImg3} />
+            <p className="legend">Norte de Quito</p>
+          </div>
+        </Carousel>
+      </div>
+      <div>
+        <h1></h1>
+      </div>
       <Footer />
     </main>
   );
