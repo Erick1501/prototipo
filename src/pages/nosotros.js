@@ -26,7 +26,7 @@ const nosotros = () => {
       <div className="container">
         <div className="container">
           <div className="titulo_nosotros">
-            <h1>Sobre Nosotros</h1>
+            <h1>Nosotros</h1>
           </div>
           <div className="row">
             <div className="col-sm-6">

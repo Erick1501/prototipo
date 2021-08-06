@@ -11,17 +11,17 @@ import {
   TrashIcon,
 } from "evergreen-ui";
 
-const Ropa = () => {
+const Juguetes = () => {
   const [isShown, setIsShown] = React.useState(false);
 
    /** informacion de la donacion de ropa **/
-   const [data_ropa, actualizar_data_ropa] = React.useState([]);
-   const [inf_data_ropa, cambiar_inf_data_ropa] = React.useState([]);
+   const [data_Juguetes, actualizar_data_Juguetes] = React.useState([]);
+   const [inf_data_Juguetes, cambiar_inf_data_Juguetes] = React.useState([]);
  
    React.useEffect(() => {
-     fetch("http://localhost:1337/articulos-ropas")
+     fetch("http://localhost:1337/articulo-juguetes")
        .then((response) => response.json())
-       .then((data) => actualizar_data_ropa(data));
+       .then((data) => actualizar_data_Juguetes(data));
    }, []);
  
   return (
@@ -40,8 +40,8 @@ const Ropa = () => {
       >
         <div>
         <Table striped bordered hover>
-            {data_ropa.length &&
-              data_ropa.map((item, key) => (
+            {data_Juguetes.length &&
+              data_Juguetes.map((item, key) => (
                 <>
                   <thead>
                     <tr>
@@ -58,7 +58,7 @@ const Ropa = () => {
                         <Button
                           onClick={() => {
                             setIsShown(true);
-                            cambiar_inf_data_ropa(item);
+                            cambiar_inf_data_Juguetes(item);
                           }}
                         >
                           Ver Información
@@ -80,28 +80,18 @@ const Ropa = () => {
                 <div>
                   <b>Género</b>
                 </div>
-                <div className="aws">{inf_data_ropa.genero} </div>
+                <div className="aws">{inf_data_Juguetes.genero} </div>
                 <div>
-                  <b>Tipo</b>
+                  <b>Descripción</b>
                 </div>
-                <div className="aws">{inf_data_ropa.tipo}</div>
-                <div>
-                  <b>Talla</b>
-                </div>
-                <div className="aws">{inf_data_ropa.talla}</div>
-                <div>
-                  <b>Cantidad</b>
-                </div>
-                <div className="aws">{inf_data_ropa.cantidad}</div>
+                <div className="aws">{inf_data_Juguetes.descripcion}</div>             
               </div>
             </Dialog>
-          </Pane>
-          <h1>654654</h1>
-          
+          </Pane>          
         </div>
       </Pane>
     </main>
   );
 };
 
-export default Ropa;
+export default Juguetes;

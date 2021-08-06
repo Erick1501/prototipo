@@ -3,8 +3,15 @@
 @import "donacion";
 @import "login";
 @import "admin";
+@import "tabladonacion";
 
 main {
+  .p-t {
+    padding-top: 1rem;
+  }
+.m-b {
+    margin-bottom: 1rem;
+  }
   position: relative;
 
   .navbar {

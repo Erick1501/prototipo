@@ -9,6 +9,8 @@ import {
   Autocomplete,
   Tooltip,
   FilePicker,
+  Combobox,
+  Label,
 } from "evergreen-ui";
 import { Form } from "react-bootstrap";
 import Footer from "../components/Footer";
@@ -16,11 +18,91 @@ import Footer from "../components/Footer";
 const Donaciones = () => {
   const [validacion_formu, cambiar_validacion_formu] = React.useState(true);
   const [tipo_donaciones, cambiar_tipo_donaciones] = React.useState("");
-  const [tipo_alimentos, cambiar_tipo_alimentos] = React.useState("");
+  // const [tipo_alimentos, cambiar_tipo_alimentos] = React.useState("");
   const [boton_donacion, cambiar_boton_donacion] = React.useState("");
-  const [genero_ropa, cambiar_genero_ropa] = React.useState("");
-  const [talla_ropa, cambiar_talla_ropa] = React.useState("");
+  //const [genero_ropa, cambiar_genero_ropa] = React.useState("");
+  //const [talla_ropa, cambiar_talla_ropa] = React.useState("");
   const [validar_donacion, cambiar_validacion_donacion] = React.useState("");
+  console.log(donacion_data);
+  const [donacion_data, cambiar_donacion_data] = React.useState({
+    cantidad: "",
+    baucher: "",
+  });
+  const [ropa_data, cambiar_ropa_data] = React.useState({
+    genero: "",
+    tipo: "",
+    talla: "",
+    cantidad: "",
+  });
+  const [juguetes_data, cambiar_juguetes_data] = React.useState({
+    genero: "",
+    descripcion: "",
+  });
+  const [alimentos_data, cambiar_alimentos_data] = React.useState({
+    tipo: "",
+    tipo2: "",
+    descripcion: "",
+  });
+  const [formulario_data, cambiar_formulario_data] = React.useState({
+    Nombre: "",
+    Apellido: "",
+    correo: "",
+    numero: "",
+  });
+  console.log(formulario_data);
+  const enviarformulario = () => {
+    fetch("http://localhost:1337/registro-donantes", {
+      method: "POST",
+      body: JSON.stringify(formulario_data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(() => {
+        window.alert("gracias");
+      })
+      .catch((error) => window.alert(error));
+  };
+
+  const enviarDonacion = () => {
+    let endpoint = "";
+    let body = {};
+    if (tipo_donaciones === "ropa") {
+      endpoint = "/articulos-ropas";
+      body = ropa_data;
+    } else if (tipo_donaciones === "alimentos") {
+      endpoint = "/articulos-alimentos";
+      body = alimentos_data;
+    } else if (tipo_donaciones === "juguetes") {
+      endpoint = "/articulo-juguetes";
+      body = juguetes_data;
+    }
+    fetch(`http://localhost:1337${endpoint}`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(() => {
+        window.alert("gracias");
+      })
+      .catch((error) => window.alert(error));
+  };
+
+  const enviardonmonetaria = () => {
+    fetch("http://localhost:1337/donacion-monetarias", {
+      method: "POST",
+      body: JSON.stringify(donacion_data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(() => {
+        window.alert("gracias");
+      })
+      .catch((error) => window.alert(error));
+  };
 
   return (
     <main>
@@ -45,25 +127,60 @@ const Donaciones = () => {
           </div>
           <div>
             <Form.Group>
-              <Form.Label>Nombres</Form.Label>
-              <Form.Control type="name" />
+              <TextInputField
+                width={400}
+                label="Nombres"
+                onChange={(e) =>
+                  cambiar_formulario_data({
+                    ...formulario_data,
+                    Nombre: e.target.value,
+                  })
+                }
+              />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Apellidos</Form.Label>
-              <Form.Control type="name" />
+              <TextInputField
+                width={400}
+                label="Apellidos"
+                onChange={(e) =>
+                  cambiar_formulario_data({
+                    ...formulario_data,
+                    Apellido: e.target.value,
+                  })
+                }
+              />
             </Form.Group>
             <Form.Group controlId="formBasicEmail">
-              <Form.Label>Correo Electrónico</Form.Label>
-              <Form.Control type="email" />
+              <TextInputField
+                width={400}
+                label="Correo Electrónico"
+                onChange={(e) =>
+                  cambiar_formulario_data({
+                    ...formulario_data,
+                    correo: e.target.value,
+                  })
+                }
+              />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Número Celular</Form.Label>
-              <Form.Control type="phone" />
+              <TextInputField
+                width={400}
+                label="Número de teléfono"
+                onChange={(e) =>
+                  cambiar_formulario_data({
+                    ...formulario_data,
+                    numero: e.target.value,
+                  })
+                }
+              />
             </Form.Group>
           </div>
 
           <Button
-            onClick={() => cambiar_validacion_formu("")}
+            onClick={() => {
+              enviarformulario();
+              cambiar_validacion_formu("");
+            }}
             appearance="primary"
             className="boton-ayuda"
           >
@@ -133,337 +250,178 @@ const Donaciones = () => {
                   {tipo_donaciones === "ropa" ? (
                     <div>
                       <div className="Ropa">
-                        <div>
-                          <div>
-                            <Text size={400}>Genero</Text>
-                          </div>
-                          <Button onClick={() => cambiar_genero_ropa("hombre")}>
-                            Hombre
-                          </Button>
-                          <Button onClick={() => cambiar_genero_ropa("hombre")}>
-                            Mujer
-                          </Button>
+                        <div className="p-t">
+                          <Label marginBottom={4} display="block">
+                            Género
+                          </Label>
+                          <Combobox
+                            items={["Hombre", "Mujer"]}
+                            onChange={(selected) =>
+                              cambiar_ropa_data({
+                                ...ropa_data,
+                                genero: selected,
+                              })
+                            }
+                            className="m-b"
+                            width={400}
+                            placeholder="Elige tu género..."
+                            autocompleteProps={{
+                              title: "Género",
+                            }}
+                            label="Género"
+                          />
                         </div>
-                        {genero_ropa === "hombre" ? (
-                          <div>
-                            <div>
-                              <div>
-                                <Text size={400}>Tipo</Text>
-                              </div>
-                              <Button
-                                onClick={() => cambiar_talla_ropa("camiseta")}
-                              >
-                                Camiseta
-                              </Button>
-                              <Button
-                                onClick={() => cambiar_talla_ropa("pantalon")}
-                              >
-                                Pantalón
-                              </Button>
-                              <Button
-                                onClick={() => cambiar_talla_ropa("chompa")}
-                              >
-                                Chompa
-                              </Button>
-                              <Button
-                                onClick={() => cambiar_talla_ropa("zapatos")}
-                              >
-                                Zapatos
-                              </Button>
-                            </div>
-                            {talla_ropa === "camiseta" ? (
-                              <div>
-                                <div>
-                                  <div>
-                                    <Text size={400}>Talla</Text>
-                                  </div>
-                                  <Button>S - (36)</Button>
-                                  <Button>M - (38)</Button>
-                                  <Button>L - (40)</Button>
-                                  <Button>XL - (42)</Button>
-                                </div>
-                                <div>
-                                  <TextInputField
-                                    width={400}
-                                    label="Cantidad de ropa"
-                                  />
-                                </div>
-                              </div>
-                            ) : talla_ropa === "pantalon" ? (
-                              <div>
-                                <div>
-                                  <div>
-                                    <Text size={400}>Talla</Text>
-                                  </div>
-                                  <Button>S - (36)</Button>
-                                  <Button>M - (38)</Button>
-                                  <Button>L - (40)</Button>
-                                  <Button>XL - (42)</Button>
-                                </div>
-                                <div>
-                                  <TextInputField
-                                    width={400}
-                                    label="Cantidad de ropa"
-                                  />
-                                </div>
-                              </div>
-                            ) : talla_ropa === "chompa" ? (
-                              <div>
-                                <div>
-                                  <div>
-                                    <Text size={400}>Talla</Text>
-                                  </div>
-                                  <Button>S - (36)</Button>
-                                  <Button>M - (38)</Button>
-                                  <Button>L - (40)</Button>
-                                  <Button>XL - (42)</Button>
-                                </div>
-                                <div>
-                                  <TextInputField
-                                    width={400}
-                                    label="Cantidad de ropa"
-                                  />
-                                </div>
-                              </div>
-                            ) : talla_ropa === "zapatos" ? (
-                              <div>
-                                <div>
-                                  <div>
-                                    <Text size={400}>Talla</Text>
-                                  </div>
-                                  <Button>S - (36)</Button>
-                                  <Button>M - (38)</Button>
-                                  <Button>L - (40)</Button>
-                                  <Button>XL - (42)</Button>
-                                </div>
-                                <div>
-                                  <TextInputField
-                                    width={400}
-                                    label="Cantidad de ropa"
-                                  />
-                                </div>
-                              </div>
-                            ) : null}
-                          </div>
-                        ) : genero_ropa === "mujer" ? (
-                          <div>
-                            <div>
-                              <div>
-                                <Text size={400}>Tipo</Text>
-                              </div>
-                              <Button
-                                onClick={() => cambiar_talla_ropa("camiseta")}
-                              >
-                                Camiseta
-                              </Button>
-                              <Button
-                                onClick={() => cambiar_talla_ropa("pantalon")}
-                              >
-                                Pantalòn
-                              </Button>
-                              <Button
-                                onClick={() => cambiar_talla_ropa("chompa")}
-                              >
-                                Chompa
-                              </Button>
-                              <Button
-                                onClick={() => cambiar_talla_ropa("zapatos")}
-                              >
-                                Zapatos
-                              </Button>
-                            </div>
-                            {talla_ropa === "camiseta" ? (
-                              <div>
-                                <div>
-                                  <div>
-                                    <Text size={400}>Talla</Text>
-                                  </div>
-                                  <Button>S - (36)</Button>
-                                  <Button>M - (38)</Button>
-                                  <Button>L - (40)</Button>
-                                  <Button>XL - (42)</Button>
-                                </div>
-                                <div>
-                                  <TextInputField
-                                    width={400}
-                                    label="Cantidad de ropa"
-                                  />
-                                </div>
-                              </div>
-                            ) : talla_ropa === "pantalon" ? (
-                              <div>
-                                <div>
-                                  <div>
-                                    <Text size={400}>Talla</Text>
-                                  </div>
-                                  <Button>S - (36)</Button>
-                                  <Button>M - (38)</Button>
-                                  <Button>L - (40)</Button>
-                                  <Button>XL - (42)</Button>
-                                </div>
-                                <div>
-                                  <TextInputField
-                                    width={400}
-                                    label="Cantidad de ropa"
-                                  />
-                                </div>
-                              </div>
-                            ) : talla_ropa === "chompa" ? (
-                              <div>
-                                <div>
-                                  <div>
-                                    <Text size={400}>Talla</Text>
-                                  </div>
-                                  <Button>S - (36)</Button>
-                                  <Button>M - (38)</Button>
-                                  <Button>L - (40)</Button>
-                                  <Button>XL - (42)</Button>
-                                </div>
-                                <div>
-                                  <TextInputField
-                                    width={400}
-                                    label="Cantidad de ropa"
-                                  />
-                                </div>
-                              </div>
-                            ) : talla_ropa === "zapatos" ? (
-                              <div>
-                                <div>
-                                  <div>
-                                    <Text size={400}>Talla</Text>
-                                  </div>
-                                  <Button>S - (36)</Button>
-                                  <Button>M - (38)</Button>
-                                  <Button>L - (40)</Button>
-                                  <Button>XL - (42)</Button>
-                                </div>
-                                <div>
-                                  <TextInputField
-                                    width={400}
-                                    label="Cantidad de ropa"
-                                  />
-                                </div>
-                              </div>
-                            ) : null}
-                          </div>
-                        ) : null}
+                        <Label marginBottom={4} display="block">
+                          Tipo de ropa
+                        </Label>
+                        <Combobox
+                          items={["Camiseta", "Pantalón", "Chompa", "Zapatos"]}
+                          onChange={(selected) =>
+                            cambiar_ropa_data({ ...ropa_data, tipo: selected })
+                          }
+                          className="m-b"
+                          width={400}
+                          placeholder="Elige el tipo de ropa..."
+                          autocompleteProps={{
+                            title: "Tipo de ropa",
+                          }}
+                          label="Tipo de ropa"
+                        />
+                        <Text width={400}> </Text>
+                        <Label marginBottom={4} display="block">
+                          Talla de la ropa
+                        </Label>
+                        <Combobox
+                          items={[
+                            "S - (36)",
+                            "M - (38)",
+                            "L - (40)",
+                            "XL - (42)",
+                          ]}
+                          onChange={(selected) =>
+                            cambiar_ropa_data({ ...ropa_data, talla: selected })
+                          }
+                          marginBottom="15px"
+                          width={400}
+                          placeholder="Elige la talla de la ropa..."
+                          autocompleteProps={{
+                            title: "Talla de la ropa",
+                          }}
+                          label="Talla de la ropa"
+                        />
+                        <TextInputField
+                          onChange={(e) =>
+                            cambiar_ropa_data({
+                              ...ropa_data,
+                              cantidad: e.target.value,
+                            })
+                          }
+                          width={400}
+                          label="Cantidad de la ropa"
+                          type="number"
+                        />
                       </div>
                     </div>
                   ) : tipo_donaciones === "alimentos" ? (
                     <div>
                       <div className="Alimetos">
                         <div>
-                          <Text width={400}> Alimentos </Text>
-                          <div>
-                            <Text size={400}>Tipo</Text>
-                          </div>
+                          <Label
+                            marginBottom={4}
+                            marginTop={15}
+                            display="block"
+                          >
+                            Tipo de alimento
+                          </Label>
+                          <Combobox
+                            items={[
+                              "No perecederos",
+                              "Semi perecederos",
+                              "Perecederos",
+                            ]}
+                            onChange={(selected) =>
+                              cambiar_alimentos_data({
+                                ...alimentos_data,
+                                tipo: selected,
+                              })
+                            }
+                            className="m-b"
+                            width={400}
+                            placeholder="Elija el tipo de alimento..."
+                            autocompleteProps={{
+                              title: "Tipo de alimento",
+                            }}
+                          />
                         </div>
-                        <div>
-                          <Tooltip content="Azúcar, sal, harinas, cereales... etc.">
-                            <Button
-                              onClick={() =>
-                                cambiar_tipo_alimentos("no-pereceredos")
-                              }
-                            >
-                              No ereceredos
-                            </Button>
-                          </Tooltip>
-                          <Tooltip content="Huevos, papas,  frutos secos... etc.">
-                            <Button
-                              onClick={() =>
-                                cambiar_tipo_alimentos("semi-pereceredos")
-                              }
-                            >
-                              Semi-perecederos
-                            </Button>
-                          </Tooltip>
-                          <Tooltip content="Leche, carne, frutas , vegetales... etc.">
-                            <Button
-                              onClick={() =>
-                                cambiar_tipo_alimentos("pereceredos")
-                              }
-                            >
-                              Pereceredos
-                            </Button>
-                          </Tooltip>
-                        </div>
-                        {tipo_alimentos === "no-pereceredos" ? (
+                        {alimentos_data.tipo === "No perecederos" ? (
                           <div>
-                            <div>
-                              <Text width={400}>Productos</Text>
-                            </div>
-                            <div>
-                              <Text width={400}>Tipo</Text>
-                            </div>
-                            <div>
-                              <Tooltip content="Atún, sardina, maíz... etc.  ">
-                                <Button>Enlatados</Button>
-                              </Tooltip>
-                              <Tooltip content="Avena, lenteja, frejol... etc. ">
-                                <Button>Secos</Button>
-                              </Tooltip>
-                            </div>
-                            <Autocomplete
-                              title="productos"
-                              width={100}
-                              onChange={(changedItem) =>
-                                console.log(changedItem)
+                            <Label marginBottom={4} display="block">
+                              Tipo de alimento no perecedero
+                            </Label>
+                            <Combobox
+                              items={["Enlatados", "Secos"]}
+                              onChange={(selected) =>
+                                cambiar_alimentos_data({
+                                  ...alimentos_data,
+                                  tipo2: selected,
+                                })
                               }
-                              items={["Azucar", "Sal", "Harina"]}
-                            >
-                              {(props) => {
-                                const {
-                                  getInputProps,
-                                  getRef,
-                                  inputValue,
-                                } = props;
-                                return (
-                                  <Textarea
-                                    placeholder="Descripcion"
-                                    value={inputValue}
-                                    ref={getRef}
-                                    {...getInputProps()}
-                                  />
-                                );
+                              className="m-b"
+                              width={400}
+                              placeholder="Elija el tipo de alimento no perecedero..."
+                              autocompleteProps={{
+                                title: "Tipo de alimento",
                               }}
-                            </Autocomplete>
+                            />
+                            <div>
+                              <Label
+                                htmlFor="textarea-2"
+                                marginBottom={4}
+                                display="block"
+                              >
+                                Descripción de los alimentos
+                              </Label>
+                              <Textarea
+                                placeholder="Descripcion"
+                                id="textarea-2"
+                                label="Descripción de los alimentos"
+                                onChange={(e) =>
+                                  cambiar_alimentos_data({
+                                    ...alimentos_data,
+                                    descripcion: e.target.value,
+                                  })
+                                }
+                              />
+                            </div>
                           </div>
-                        ) : tipo_alimentos === "semi-pereceredos" ? (
+                        ) : alimentos_data.tipo === "Semi perecederos" ? (
                           <div>
                             <Text width={400}>Productos</Text>
-                            <Textarea placeholder="Descripcion" />
+                            <Textarea
+                              placeholder="Descripcion"
+                              onChange={(e) =>
+                                cambiar_alimentos_data({
+                                  ...alimentos_data,
+                                  descripcion: e.target.value,
+                                })
+                              }
+                            />
                           </div>
-                        ) : tipo_alimentos === "pereceredos" ? (
+                        ) : alimentos_data.tipo === "Perecederos" ? (
                           <div>
                             <div>
                               <div>
                                 <Text width={400}>Productos</Text>
                               </div>
-
-                              <Autocomplete
-                                title="productos"
-                                width={100}
-                                onChange={(changedItem) =>
-                                  console.log(changedItem)
+                              <Textarea
+                                placeholder="Descripcion"
+                                onChange={(e) =>
+                                  cambiar_alimentos_data({
+                                    ...alimentos_data,
+                                    descripcion: e.target.value,
+                                  })
                                 }
-                                items={["Azucar", "Sal", "Harina"]}
-                              >
-                                {(props) => {
-                                  const {
-                                    getInputProps,
-                                    getRef,
-                                    inputValue,
-                                  } = props;
-                                  return (
-                                    <Textarea
-                                      placeholder="Descripcion"
-                                      value={inputValue}
-                                      ref={getRef}
-                                      {...getInputProps()}
-                                    />
-                                  );
-                                }}
-                              </Autocomplete>
+                              />
                             </div>
                           </div>
                         ) : null}
@@ -472,20 +430,47 @@ const Donaciones = () => {
                   ) : tipo_donaciones === "juguetes" ? (
                     <div>
                       <div className="Juguetes">
-                        <Text width={400}>Juguetes</Text>
-                        <div>
-                          <Button>Hombre</Button>
-                          <Button>Mujer </Button>
-                        </div>
+                        <Label marginBottom={4} display="block">
+                          Género
+                        </Label>
+                        <Combobox
+                          items={["Hombre", "Mujer"]}
+                          onChange={(selected) =>
+                            cambiar_juguetes_data({
+                              ...juguetes_data,
+                              genero: selected,
+                            })
+                          }
+                          className="m-b"
+                          width={400}
+                          placeholder="Elija el genero..."
+                          autocompleteProps={{
+                            title: "Tipo de alimento",
+                          }}
+                        />
+                        <Label marginBottom={4} display="block">
+                          Descripción
+                        </Label>
                         <Textarea
+                          width={400}
                           name="Juguete"
                           placeholder="Descripcion del Juguete"
+                          onChange={(e) =>
+                            cambiar_juguetes_data({
+                              ...juguetes_data,
+                              descripcion: e.target.value,
+                            })
+                          }
                         />
                       </div>
                     </div>
                   ) : null}
                   <div>
-                    <Button appearance="primary" className="boton-ayuda">
+                    <Button
+                      appearance="primary"
+                      className="boton-ayuda"
+                      onClick={enviarDonacion}
+                    >
                       Enviar
                     </Button>
                   </div>
@@ -536,6 +521,12 @@ const Donaciones = () => {
                       <div>
                         <div>
                           <TextInputField
+                            onChange={(e) =>
+                              cambiar_donacion_data({
+                                ...donacion_data,
+                                cantidad: e.target.value,
+                              })
+                            }
                             width={400}
                             label="¿Cuanto quiere donar?"
                             placeholder="$00.00"
@@ -544,6 +535,12 @@ const Donaciones = () => {
                         <div>
                           <h6>Baucher</h6>
                           <FilePicker
+                            onChange={(e) =>
+                              cambiar_donacion_data({
+                                ...donacion_data,
+                                baucher: e.target.value,
+                              })
+                            }
                             multiple
                             width={250}
                             onChange={(files) => console.log(files)}
@@ -552,7 +549,11 @@ const Donaciones = () => {
                         </div>
                         <h1></h1>
                         <div>
-                          <Button appearance="primary" className="boton-ayuda">
+                          <Button
+                            onClick={enviardonmonetaria}
+                            appearance="primary"
+                            className="boton-ayuda"
+                          >
                             Enviar
                           </Button>
                         </div>

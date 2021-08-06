@@ -21,7 +21,7 @@ const Footer = () => {
               <h3>Ubicación</h3>
               <div>
                 <div>Iglesia de San Diego de Alcalá</div>
-                <div>Calle Farman frente al cementrio</div>
+                <div>Calle Farman frente al cementerio</div>
                 <div>Quito, Ecuador</div>
               </div>
             </div>

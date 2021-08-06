@@ -13,6 +13,30 @@ import Footer from "../components/Footer";
 import imgvol from "../images/voluntariado.jpg";
 
 const Voluntariado = () => {
+ 
+  const [data, cambiar_data] = React.useState({
+    nombre: "",
+    apellido: "",
+    email: "",
+    cedula: "",
+    celular: "",
+    profesion: "",
+  });
+  
+  console.log(data);
+  const enviarFormulario = () => {
+    fetch("http://localhost:1337/voluntarios", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(() => {
+        window.alert("gracias");
+      })
+      .catch((error) => window.alert(error));
+  };
   return (
     <main>
       <NavbarComponent />
@@ -34,30 +58,68 @@ const Voluntariado = () => {
               <Text size={500}>Registro de Voluntarios</Text>
             </div>
             <div>
-              <TextInputField width={400} label="Nombres" />
+              <TextInputField
+                onChange={(e) =>
+                  cambiar_data({ ...data, nombre: e.target.value })
+                }
+                width={400}
+                label="Nombres"
+              />
               <Text nombre="text-input-name" />
             </div>
             <div>
-              <TextInputField width={400} label="Apellidos" />
+              <TextInputField
+                onChange={(e) =>
+                  cambiar_data({ ...data, apellido: e.target.value })
+                }
+                width={400}
+                label="Apellidos"
+              />
               <Text apellido="text-input-lastname" />
             </div>
             <div>
-              <TextInputField width={400} label="Correo Electrónico" />
+              <TextInputField
+                onChange={(e) =>
+                  cambiar_data({ ...data, email: e.target.value })
+                }
+                width={400}
+                label="Correo Electrónico"
+              />
               <Text correo="text-input-email" />
             </div>
             <div>
-              <TextInputField width={400} label="Cédula de identidad" />
+              <TextInputField
+                onChange={(e) =>
+                  cambiar_data({ ...data, cedula: e.target.value })
+                }
+                width={400}
+                label="Cédula de identidad"
+              />
               <Text cedula="text-input-cedula" />
             </div>
             <div>
-              <TextInputField width={400} label="Número Celular" />
+              <TextInputField
+                onChange={(e) =>
+                  cambiar_data({ ...data, celular: e.target.value })
+                }
+                width={400}
+                label="Número Celular"
+              />
               <Text celular="text-input-numero" />
             </div>
             <div>
               <Autocomplete
                 title="profesion"
-                onChange={(changedItem) => console.log(changedItem)}
-                items={["Doctor", "Enfermero", "psicologo", "Paramedico", "Ingeniero"]}
+                onChange={(changedItem) =>
+                  cambiar_data({ ...data, profesion: changedItem })
+                }
+                items={[
+                  "Doctor",
+                  "Enfermero",
+                  "psicologo",
+                  "Paramedico",
+                  "Ingeniero",
+                ]}
               >
                 {(props) => {
                   const { getInputProps, getRef, inputValue } = props;
@@ -73,8 +135,12 @@ const Voluntariado = () => {
                 }}
               </Autocomplete>
             </div>
-            
-            <Button appearance="primary" className="boton-ayuda">
+
+            <Button
+              onClick={enviarFormulario}
+              appearance="primary"
+              className="boton-ayuda"
+            >
               Enviar
             </Button>
           </Pane>

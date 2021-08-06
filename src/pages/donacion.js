@@ -1,17 +1,66 @@
 import * as React from "react";
 import NavbarComponent from "../components/NavbarComponent";
-import { Pane, Text, TextInputField, Button, Autocomplete } from "evergreen-ui";
+import {
+  Pane,
+  Text,
+  TextInputField,
+  Button,
+  Autocomplete,
+  Combobox,
+} from "evergreen-ui";
 
 import Footer from "../components/Footer";
 import imgdona from "../images/donacion.jpg";
 
 const Donacion = () => {
-  const [una_persona, cambiar_una_persona] = React.useState(true);
-  const [sector, cambiar_sector] = React.useState();
-  
+  const [zona, cambiar_zona] = React.useState();
+  const [sur_data, cambiar_sur_data] = React.useState({
+    sector: "",
+    direccion: "",
+    personas: "",
+    descripcion: "",
+  });
+  const [centro_data, cambiar_centro_data] = React.useState({
+    sector: "",
+    direccion: "",
+    personas: "",
+    descripcion: "",
+  });
+  const [norte_data, cambiar_norte_data] = React.useState({
+    sector: "",
+    direccion: "",
+    personas: "",
+    descripcion: "",
+  });
+  const enviarZona = () => {
+    let endpoint = "";
+    let body = {};
+    if (zona === "sur") {
+      endpoint = "/sector-surs";
+      body = sur_data;
+    } else if (zona === "centro") {
+      endpoint = "/sector-centros";
+      body = centro_data;
+    } else if (zona === "norte") {
+      endpoint = "/sector-nortes";
+      body = norte_data;
+    }
+    fetch(`http://localhost:1337${endpoint}`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(() => {
+        window.alert("gracias");
+      })
+      .catch((error) => window.alert(error));
+  };
+
   return (
     <main>
-      <NavbarComponent /> 
+      <NavbarComponent />
       <div className="cont-don">
         <Pane clearfix>
           <Pane
@@ -49,16 +98,14 @@ const Donacion = () => {
               <h1></h1>
             </div>
             <div>
-              <Button onClick={() => cambiar_sector("sur")}>SUR</Button>
-              <Button onClick={() => cambiar_sector("centro")}>CENTRO</Button>
-              <Button onClick={() => cambiar_sector("norte")}>NORTE</Button>
+              <Button onClick={() => cambiar_zona("sur")}>SUR</Button>
+              <Button onClick={() => cambiar_zona("centro")}>CENTRO</Button>
+              <Button onClick={() => cambiar_zona("norte")}>NORTE</Button>
             </div>
-            {sector === "sur" ? (
+            {zona === "sur" ? (
               <div>
                 <div>
-                  <Autocomplete
-                    title="Sector"
-                    onChange={(changedItem) => console.log(changedItem)}
+                  <Combobox
                     items={[
                       "San Bartolo",
                       "La Magdalena",
@@ -77,235 +124,236 @@ const Donacion = () => {
                       "Santa Rita",
                       "Chillogallo",
                     ]}
-                  >
-                    {(props) => {
-                      const { getInputProps, getRef, inputValue } = props;
-                      return (
-                        <TextInputField
-                          validationMessage="Este campo es obligatorio"
-                          width={400}
-                          value={inputValue}
-                          ref={getRef}
-                          {...getInputProps()}
-                          label="Sector"
-                        />
-                      );
+                    
+                    onChange={(selected) =>
+                      cambiar_sur_data({
+                        ...sur_data,
+                        sector: selected,
+                      })
+                    }
+                    className="m-b"
+                    width={400}                   
+                    placeholder="Elige el sector..."
+                    autocompleteProps={{
+                      title: "sector",
                     }}
-                  </Autocomplete>
+                    
+                    label="Sector"
+                  />
                 </div>
                 <div>
                   <TextInputField
+                    onChange={(e) =>
+                      cambiar_sur_data({
+                        ...sur_data,
+                        direccion: e.target.value,
+                      })
+                    }
                     width={400}
                     validationMessage="Este campo es obligatorio"
                     label="Dirección Exacta"
                   />
                   <Text direccion="text-input-name" />
                 </div>
-                <div className="Serv-">
-                  <Button
-                    onClick={() => cambiar_una_persona(true)}
-                    variant="outline-secondary"
-                    className={`${una_persona ? "active" : ""} boton`}
-                  >
-                    Una Persona
-                  </Button>
-                  <Button
-                    onClick={() => cambiar_una_persona(false)}
-                    variant="outline-secondary"
-                    className={`${!una_persona ? "active" : ""} boton`}
-                  >
-                    Grupo de personas
-                  </Button>
+                <div>
+                  <div>
+                    <TextInputField
+                      onChange={(e) =>
+                        cambiar_sur_data({
+                          ...sur_data,
+                          personas: e.target.value,
+                        })
+                      }
+                      width={400}
+                      label="Número de Personas"
+                    />
+                    <Text numeroPer="text-input-name" />
+                  </div>
+                  <div>
+                    <TextInputField
+                      onChange={(e) =>
+                        cambiar_sur_data({
+                          ...sur_data,
+                          descripcion: e.target.value,
+                        })
+                      }
+                      width={400}
+                      label="Descripción"
+                    />
+                    <Text Descripcion="text-input-name" />
+                  </div>
                 </div>
-                {una_persona ? (
-                  <div>
-                    <div>
-                      <TextInputField width={400} label="Sexo" />
-                      <Text sexo="text-input-name" />
-                    </div>
-
-                    <div>
-                      <TextInputField width={400} label="Descripción" />
-                      <Text Descripcion="text-input-name" />
-                    </div>
-                  </div>
-                ) : (
-                  <div>
-                    <div>
-                      <TextInputField width={400} label="Número de Personas" />
-                      <Text numeroPer="text-input-name" />
-                    </div>
-                    <div>
-                      <TextInputField width={400} label="Descripción" />
-                      <Text Descripcion="text-input-name" />
-                    </div>
-                  </div>
-                )}
               </div>
-            ) : sector === "centro" ? (
+            ) : zona === "centro" ? (
               <div>
                 <div>
-                <div>
-                  <Autocomplete
-                    title="Sector"
-                    onChange={(changedItem) => console.log(changedItem)}
-                    items={[
-                      "Iñaquito",
-                      "Centro Historico",
-                      "Villaflora",
-                      "Paramedico",
-                      "Ingeniero",
-                    ]}
-                  >
-                    {(props) => {
-                      const { getInputProps, getRef, inputValue } = props;
-                      return (
-                        <TextInputField
-                          validationMessage="Este campo es obligatorio"
-                          width={400}
-                          value={inputValue}
-                          ref={getRef}
-                          {...getInputProps()}
-                          label="Sector"
-                        />
-                      );
-                    }}
-                  </Autocomplete>
-                </div>
-                <div>
-                  <TextInputField
-                    width={400}
-                    validationMessage="Este campo es obligatorio"
-                    label="Dirección Exacta *Obligatorio"
-                  />
-                  <Text direccion="text-input-name" />
-                </div>
-                <div>
-                  <Button
-                    onClick={() => cambiar_una_persona(true)}
-                    variant="outline-secondary"
-                    className={`${una_persona ? "active" : ""} boton`}
-                  >
-                    Una Persona
-                  </Button>
-                  <Button
-                    onClick={() => cambiar_una_persona(false)}
-                    variant="outline-secondary"
-                    className={`${!una_persona ? "active" : ""} boton`}
-                  >
-                    Grupo de personas
-                  </Button>
-                </div>
-                {una_persona ? (
                   <div>
-                    <div>
-                      <TextInputField width={400} label="Sexo" />
-                      <Text sexo="text-input-name" />
-                    </div>
-
-                    <div>
-                      <TextInputField width={400} label="Descripción" />
-                      <Text Descripcion="text-input-name" />
-                    </div>
+                    <Combobox
+                      items={[
+                        "Centro Histórico",
+                        "La Tola",
+                        "San Roque",
+                        "La Ronda",
+                        "La Marín",
+                        "San Marcos",
+                        "El Tejar ",
+                        "Toctiuco",
+                        "Miraflores",
+                        "San Juan",
+                        "San Diego",
+                        "El Panecillo",
+                        "El Ejido",
+                        "La Floresta ",
+                      ]}
+                      onChange={(selected) =>
+                        cambiar_centro_data({
+                          ...centro_data,
+                          sector: selected,
+                        })
+                      }
+                      className="m-b"
+                      width={400}
+                      placeholder="Elige el sector..."
+                      autocompleteProps={{
+                        title: "sector",
+                      }}
+                      label="Sector"
+                    />
                   </div>
-                ) : (
+                  <div>
+                    <TextInputField
+                      onChange={(e) =>
+                        cambiar_centro_data({
+                          ...centro_data,
+                          direccion: e.target.value,
+                        })
+                      }
+                      width={400}
+                      validationMessage="Este campo es obligatorio"
+                      label="Dirección Exacta"
+                    />
+                    <Text direccion="text-input-name" />
+                  </div>
                   <div>
                     <div>
-                      <TextInputField width={400} label="Número de Personas" />
+                      <TextInputField
+                        onChange={(e) =>
+                          cambiar_centro_data({
+                            ...centro_data,
+                            personas: e.target.value,
+                          })
+                        }
+                        width={400}
+                        label="Número de Personas"
+                      />
                       <Text numeroPer="text-input-name" />
                     </div>
                     <div>
-                      <TextInputField width={400} label="Descripción" />
+                      <TextInputField
+                        onChange={(e) =>
+                          cambiar_centro_data({
+                            ...centro_data,
+                            descripcion: e.target.value,
+                          })
+                        }
+                        width={400}
+                        label="Descripción"
+                      />
                       <Text Descripcion="text-input-name" />
                     </div>
                   </div>
-                )}
+                </div>
               </div>
-              </div>
-            ) : sector === "norte" ? (
+            ) : zona === "norte" ? (
               <div>
                 <div>
-                <div>
-                  <Autocomplete
-                    title="Sector"
-                    onChange={(changedItem) => console.log(changedItem)}
-                    items={[
-                      "Iñaquito",
-                      "Centro Historico",
-                      "Villaflora",
-                      "Paramedico",
-                      "Ingeniero",
-                    ]}
-                  >
-                    {(props) => {
-                      const { getInputProps, getRef, inputValue } = props;
-                      return (
-                        <TextInputField
-                          validationMessage="Este campo es obligatorio"
-                          width={400}
-                          value={inputValue}
-                          ref={getRef}
-                          {...getInputProps()}
-                          label="Sector"
-                        />
-                      );
-                    }}
-                  </Autocomplete>
-                </div>
-                <div>
-                  <TextInputField
-                    width={400}
-                    validationMessage="Este campo es obligatorio"
-                    label="Dirección Exacta *Obligatorio"
-                  />
-                  <Text direccion="text-input-name" />
-                </div>
-                <div>
-                  <Button
-                    onClick={() => cambiar_una_persona(true)}
-                    variant="outline-secondary"
-                    className={`${una_persona ? "active" : ""} boton`}
-                  >
-                    Una Persona
-                  </Button>
-                  <Button
-                    onClick={() => cambiar_una_persona(false)}
-                    variant="outline-secondary"
-                    className={`${!una_persona ? "active" : ""} boton`}
-                  >
-                    Grupo de personas
-                  </Button>
-                </div>
-                {una_persona ? (
                   <div>
-                    <div>
-                      <TextInputField width={400} label="Sexo" />
-                      <Text sexo="text-input-name" />
-                    </div>
-
-                    <div>
-                      <TextInputField width={400} label="Descripción" />
-                      <Text Descripcion="text-input-name" />
-                    </div>
+                    <Combobox
+                      items={[
+                        "La Mariscal",
+                        "El Batán",
+                        "Las Casas",
+                        "Bellavista",
+                        "Guápulo",
+                        "Iñaquito",
+                        "Quito Tennis",
+                        "Atucucho",
+                        "La Florida",
+                        "San Carlos",
+                        "Cotocollao",
+                        "Comité del Pueblo",
+                        "La Bota",
+                        "Ponceano",
+                        "El Condado",
+                        "Kennedy",
+                      ]}
+                      onChange={(selected) =>
+                        cambiar_norte_data({
+                          ...norte_data,
+                          sector: selected,
+                        })
+                      }
+                      className="m-b"
+                      width={400}
+                      placeholder="Elige el sector..."
+                      autocompleteProps={{
+                        title: "sector",
+                      }}
+                      label="Sector"
+                    />
                   </div>
-                ) : (
+                  <div>
+                    <TextInputField
+                      onChange={(e) =>
+                        cambiar_norte_data({
+                          ...norte_data,
+                          direccion: e.target.value,
+                        })
+                      }
+                      width={400}
+                      validationMessage="Este campo es obligatorio"
+                      label="Dirección Exacta"
+                    />
+                    <Text direccion="text-input-name" />
+                  </div>
                   <div>
                     <div>
-                      <TextInputField width={400} label="Número de Personas" />
+                      <TextInputField
+                        onChange={(e) =>
+                          cambiar_norte_data({
+                            ...norte_data,
+                            personas: e.target.value,
+                          })
+                        }
+                        width={400}
+                        label="Número de Personas"
+                      />
                       <Text numeroPer="text-input-name" />
                     </div>
                     <div>
-                      <TextInputField width={400} label="Descripción" />
+                      <TextInputField
+                        onChange={(e) =>
+                          cambiar_norte_data({
+                            ...norte_data,
+                            descripcion: e.target.value,
+                          })
+                        }
+                        width={400}
+                        label="Descripción"
+                      />
                       <Text Descripcion="text-input-name" />
                     </div>
                   </div>
-                )}
-              </div>
+                </div>
               </div>
             ) : null}
 
             <div>
-              <Button appearance="primary" className="boton-ayuda">
+              <Button
+                onClick={enviarZona}
+                appearance="primary"
+                className="boton-ayuda"
+              >
                 Enviar
               </Button>
             </div>

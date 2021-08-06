@@ -13,6 +13,16 @@ import {
 
 const TablaSoli = () => {
   const [isShown, setIsShown] = React.useState(false);
+
+  const [data_del_back, actualizar_data_del_back] = React.useState([])
+  const [voluntario_activo, cambiar_voluntario_activo] = React.useState({})
+  
+    React.useEffect(() => {
+      fetch("http://localhost:1337/voluntarios")
+        .then((response) => response.json())
+        .then((data) => actualizar_data_del_back(data));
+    }, []);
+ 
   return (
     <main>
       <Pane
@@ -29,24 +39,37 @@ const TablaSoli = () => {
       >
         <div>
           <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Solicitud</th>
-                <th>Estado</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>
-                  <div>Nuevo</div>
-                </td>
-                <td>
-                  <Button onClick={() => setIsShown(true)}>Ver</Button>
-                </td>
-              </tr>
-            </tbody>
+            {data_del_back.length &&
+              data_del_back.map((item, key) => (
+                <>
+                  <thead>
+                    <tr>
+                      <th>Solicitud</th>
+                      <th>Estado</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{key + 1}</td>
+                      <td>
+                        <div>Nuevo</div>
+                      </td>
+                      <td>
+                        <Button
+                          onClick={() => {
+                            setIsShown(true)
+                            cambiar_voluntario_activo(item)
+                          }
+                          }
+                        >
+                          Ver
+                        </Button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </>
+              ))}
           </Table>
         </div>
         <div>
@@ -56,6 +79,8 @@ const TablaSoli = () => {
                 isShown={isShown}
                 title="Solicitudes"
                 onCloseComplete={() => setIsShown(false)}
+                confirmLabel="Aceptar"
+                cancelLabel="Rechazar"
               >
                 {({ close }) => (
                   <Pane>
@@ -65,27 +90,31 @@ const TablaSoli = () => {
                           <div>
                             <b>Nombres</b>
                           </div>
-                          <div className="aws">Armando Pedro</div>
+                          <div
+                            className="aws"
+                          >
+                            {voluntario_activo.nombre}
+                          </div>
                           <div>
                             <b>Apellidos</b>
                           </div>
-                          <div className="aws">Casas Poma</div>
+                          <div className="aws">{voluntario_activo.apellido}</div>
                           <div>
                             <b>Correo Electronico</b>
                           </div>
-                          <div className="aws">armandopoma@45.com</div>
+                          <div className="aws">{voluntario_activo.email}</div>
                           <div>
                             <b>Cédula</b>
                           </div>
-                          <div className="aws">1725968635</div>
+                          <div className="aws">{voluntario_activo.cedula}</div>
                           <div>
                             <b>Profesión</b>
                           </div>
-                          <div className="aws">Doctor</div>
+                          <div className="aws">{voluntario_activo.profesion}</div>
                           <div>
                             <b>Numero de celular</b>
                           </div>
-                          <div className="aws">0987456123</div>
+                          <div className="aws">{voluntario_activo.celular}</div>
                         </div>
                       </div>
                     </div>

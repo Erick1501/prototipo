@@ -4,20 +4,35 @@ import {
   Button,
   Pane,
   Dialog,
-  Popover,
+  Text,
+  Label,
   Position,
   Menu,
   EditIcon,
   TrashIcon,
 } from "evergreen-ui";
-import Ropa from "./ropa";
-import Link from "gatsby";
+import Ropa from "../pages/ropa";
+import Alimentos from "../pages/alimentos";
+import Juguetes  from "../pages/juguetes";
+import Monetario from "../pages/monetario";
+
+
 
 const TablaDona = () => {
-  //const [perfil, cambiar_perfil] = React.useState(false);
   const [isShown, setIsShown] = React.useState(false);
-  const [isarticulo, setarticulo] = React.useState(false);
-  const [tipo, cambiar_tipo] = React.useState("");
+  const [articulo, cambiar_articulo] = React.useState(false);
+
+  /** informacion de donante **/
+  const [data_donante, actualizar_data_donante] = React.useState([]);
+  const [inf_donante, cambiar_inf_donante] = React.useState({});
+
+  React.useEffect(() => {
+    fetch("http://localhost:1337/registro-donantes")
+      .then((response) => response.json())
+      .then((data) => actualizar_data_donante(data));
+  }, []);
+
+ 
   return (
     <main>
       <Pane
@@ -34,41 +49,54 @@ const TablaDona = () => {
       >
         <div>
           <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Nombre del donante</th>
-                <th>Información</th>
-                <th>Tipo</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th>Juan Casas </th>
-                <th>
-                  <Button onClick={() => setIsShown(true)}>Ver Inf</Button>
-                </th>
-                <th>
-                  <div></div>
-                </th>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr>
-                <th>luis sebas tub</th>
-                <th>nuevo</th>
-                <th>
-                  <div>
-                    <Button>monetario</Button>
-                  </div>
-                  <div>
-                    <Button>articulo</Button>
-                  </div>
-                </th>
-              </tr>
-            </tbody>
+            {data_donante.length &&
+              data_donante.map((item, key) => (
+                <>
+                  <thead>
+                    <tr>
+                      <th>#</th>                     
+                      <th>Información</th>
+                      <th>Tipo donación</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{key + 1}</td>                    
+                      <td>
+                        <Button
+                          onClick={() => {
+                            setIsShown(true);
+                            cambiar_inf_donante(item);
+                          }}
+                        >
+                          Ver Información
+                        </Button>
+                      </td>
+                      <td>
+                        <div>
+                          <Button onClick={() => cambiar_articulo("ropa")}>
+                            {" "}
+                            Ropa
+                          </Button>
+                          <Button onClick={() => cambiar_articulo("alimentos")}>
+                            {" "}
+                            Alimentos
+                          </Button>
+                          <Button onClick={() => cambiar_articulo("juguetes")}>
+                            {" "}
+                            Juguetes
+                          </Button>
+                          <Button onClick={() => cambiar_articulo("monetario")}>
+                            {" "}
+                            Monetario
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </>
+              ))}
           </Table>
-        </div>
-        <div>
           <Pane>
             <Dialog
               isShown={isShown}
@@ -76,73 +104,49 @@ const TablaDona = () => {
               onCloseComplete={() => setIsShown(false)}
               hasFooter={false}
             >
-              <div className="row">
-                <div className="col-sm-12">
-                  <div>
-                    <b>Nombres</b>
-                  </div>
-                  <div className="aws">Armando Pedro</div>
-                  <div>
-                    <b>Apellidos</b>
-                  </div>
-                  <div className="aws">Casas Poma</div>
-                  <div>
-                    <b>Correo Electrónico</b>
-                  </div>
-                  <div className="aws">armandopoma@45.com</div>
-                  <div>
-                    <b>Numero de celular</b>
-                  </div>
-                  <div className="aws">0987456123</div>
-                </div>
+              <div>
                 <div>
-                  <Button onClick={() => cambiar_tipo("monetario")}>
-                    Monetario
-                  </Button>
-                  <Button onClick={() => cambiar_tipo("articulo")}>
-                    Articulo
-                  </Button>
+                  <b>Nombres</b>
                 </div>
+                <div className="aws">{inf_donante.Nombre} </div>
                 <div>
-                  {tipo === "monetario" ? (
-                    <div>
-                      <Pane height={250} width="50%" backgroundColor="#ddd" />
-                    </div>
-                  ) : tipo === "articulo" ? (
-                    <div>
-                      <Pane height={550} width="500%" backgroundColor="#ddd">
-                        <div className="row">
-                          <div className="col-sm-12">
-                            <div>
-                              <b>Articulo</b>
-                            </div>
-                            <div className="aws">ropa</div>
-                            <div>
-                              <b>Genero</b>
-                            </div>
-                            <div className="aws">Hombre</div>
-                            <div>
-                              <b>Tipo</b>
-                            </div>
-                            <div className="aws">Pantalón</div>
-                            <div>
-                              <b>Talla</b>
-                            </div>
-                            <div className="aws">S-(36)</div>
-                            <div>
-                              <b>Cantidad de ropa</b>
-                            </div>
-                            <div className="aws">2</div>
-                          </div>
-                        </div>
-                      </Pane>
-                    </div>
-                  ) : null}
+                  <b>Apellidos</b>
                 </div>
+                <div className="aws">{inf_donante.Apellido}</div>
+                <div>
+                  <b>Correo Electrónico</b>
+                </div>
+                <div className="aws">{inf_donante.correo}</div>
+                <div>
+                  <b>Numero de celular</b>
+                </div>
+                <div className="aws">{inf_donante.numero}</div>
               </div>
             </Dialog>
           </Pane>
         </div>
+        <div>
+          <div>
+            {articulo === "ropa" ? (
+              <div>
+                <Ropa />
+              </div>
+            ) : articulo === "alimentos" ? (
+              <div>
+                <Alimentos />
+              </div>
+            ) : articulo === "juguetes" ? (
+              <di>
+                <Juguetes />
+              </di>
+            ) : articulo === "monetario" ? (
+              <div>
+                <Monetario />
+              </div>
+            ) : null}
+          </div>
+        </div>
+        <div></div>
       </Pane>
     </main>
   );

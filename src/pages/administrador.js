@@ -22,13 +22,7 @@ const Login = () => {
         >
           VOLUNTARIOS
         </Button>
-        <Button
-          onClick={() => cambiar_nav_admin("solicitudes")}
-          margin={16}
-          variant="minimal"
-        >
-          SOLICITUDES
-        </Button>
+        
         <Button
           onClick={() => cambiar_nav_admin("donaciones")}
           margin={16}

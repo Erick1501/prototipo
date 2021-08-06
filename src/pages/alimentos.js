@@ -11,17 +11,17 @@ import {
   TrashIcon,
 } from "evergreen-ui";
 
-const Ropa = () => {
+const Alimentos = () => {
   const [isShown, setIsShown] = React.useState(false);
 
    /** informacion de la donacion de ropa **/
-   const [data_ropa, actualizar_data_ropa] = React.useState([]);
-   const [inf_data_ropa, cambiar_inf_data_ropa] = React.useState([]);
+   const [data_alimentos, actualizar_data_alimentos] = React.useState([]);
+   const [inf_data_alimentos, cambiar_inf_data_alimentos] = React.useState([]);
  
    React.useEffect(() => {
-     fetch("http://localhost:1337/articulos-ropas")
+     fetch("http://localhost:1337/articulos-alimentos")
        .then((response) => response.json())
-       .then((data) => actualizar_data_ropa(data));
+       .then((data) => actualizar_data_alimentos(data));
    }, []);
  
   return (
@@ -40,8 +40,8 @@ const Ropa = () => {
       >
         <div>
         <Table striped bordered hover>
-            {data_ropa.length &&
-              data_ropa.map((item, key) => (
+            {data_alimentos.length &&
+              data_alimentos.map((item, key) => (
                 <>
                   <thead>
                     <tr>
@@ -58,7 +58,7 @@ const Ropa = () => {
                         <Button
                           onClick={() => {
                             setIsShown(true);
-                            cambiar_inf_data_ropa(item);
+                            cambiar_inf_data_alimentos(item);
                           }}
                         >
                           Ver Información
@@ -78,30 +78,24 @@ const Ropa = () => {
             >
               <div>
                 <div>
-                  <b>Género</b>
-                </div>
-                <div className="aws">{inf_data_ropa.genero} </div>
-                <div>
                   <b>Tipo</b>
                 </div>
-                <div className="aws">{inf_data_ropa.tipo}</div>
+                <div className="aws">{inf_data_alimentos.tipo} </div>
                 <div>
-                  <b>Talla</b>
+                  <b>Tipo 2</b>
                 </div>
-                <div className="aws">{inf_data_ropa.talla}</div>
+                <div className="aws">{inf_data_alimentos .tipo2}</div>
                 <div>
-                  <b>Cantidad</b>
+                  <b>Descripción</b>
                 </div>
-                <div className="aws">{inf_data_ropa.cantidad}</div>
+                <div className="aws">{inf_data_alimentos.descripcion}</div>             
               </div>
             </Dialog>
-          </Pane>
-          <h1>654654</h1>
-          
+          </Pane>          
         </div>
       </Pane>
     </main>
   );
 };
 
-export default Ropa;
+export default Alimentos;
