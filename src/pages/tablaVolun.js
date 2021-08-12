@@ -125,6 +125,13 @@ const TablaSoli = () => {
             </Pane>
           </div>
         </div>
+      <div position="BOTTOM_RIGHT">
+      <Button >Imprimir reportes</Button>
+      </div> 
+      
+    
+      
+    
       </Pane>
     </main>
   );

@@ -7,6 +7,7 @@ import {
   Button,
   Autocomplete,
   Combobox,
+  Label,
 } from "evergreen-ui";
 
 import Footer from "../components/Footer";
@@ -92,7 +93,8 @@ const Donacion = () => {
             flexDirection="column"
           >
             <div>
-              <Text size={400}>Personas Situación de Vulneravilidad</Text>
+              <Label size={500}>Personas Situación de Vulneravilidad </Label>
+              
             </div>
             <div>
               <h1></h1>
@@ -105,6 +107,7 @@ const Donacion = () => {
             {zona === "sur" ? (
               <div>
                 <div>
+                  <Label>Sector</Label>
                   <Combobox
                     items={[
                       "San Bartolo",
@@ -188,6 +191,7 @@ const Donacion = () => {
               <div>
                 <div>
                   <div>
+                  <Label>Sector</Label>
                     <Combobox
                       items={[
                         "Centro Histórico",
@@ -218,6 +222,7 @@ const Donacion = () => {
                         title: "sector",
                       }}
                       label="Sector"
+                     
                     />
                   </div>
                   <div>
@@ -268,6 +273,7 @@ const Donacion = () => {
               <div>
                 <div>
                   <div>
+                  <Label>Sector</Label>
                     <Combobox
                       items={[
                         "La Mariscal",
